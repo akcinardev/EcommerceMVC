@@ -1,5 +1,5 @@
-﻿using EcommerceWeb.Data;
-using EcommerceWeb.Models;
+﻿using Ecommerce.DataAccess.Data;
+using Ecommerce.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EcommerceWeb.Controllers
@@ -19,6 +19,15 @@ namespace EcommerceWeb.Controllers
 
         public IActionResult Create()
         {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Category category)
+        {
+            _db.Categories.Add(category);
+            _db.SaveChanges();
+
             return View();
         }
     }
