@@ -2,14 +2,15 @@
 using Ecommerce.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EcommerceWeb.Controllers
+namespace EcommerceWeb.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class CategoryController : Controller
     {
         private readonly ICategoryRepo _categoryRepo;
         public CategoryController(ICategoryRepo categoryRepo)
         {
-			_categoryRepo = categoryRepo;
+            _categoryRepo = categoryRepo;
         }
         public IActionResult Index()
         {
@@ -32,71 +33,71 @@ namespace EcommerceWeb.Controllers
                 TempData["success"] = "Category created successfully!";
                 return RedirectToAction("Index");
             }
-			return View();
+            return View();
         }
 
-		public IActionResult Edit(int? id)
-		{
-			if (id == null)
+        public IActionResult Edit(int? id)
+        {
+            if (id == null)
             {
                 return NotFound();
             }
 
             var category = _categoryRepo.Get(u => u.Id == id);
-            
+
             if (category == null)
             {
                 return NotFound();
             }
 
             return View(category);
-		}
+        }
 
-		[HttpPost]
-		public IActionResult Edit(Category category)
-		{
-			if (ModelState.IsValid)
-			{
-				_categoryRepo.Update(category);
-				_categoryRepo.Save();
-				TempData["success"] = "Category updated successfully!";
-				return RedirectToAction("Index");
-			}
+        [HttpPost]
+        public IActionResult Edit(Category category)
+        {
+            if (ModelState.IsValid)
+            {
+                _categoryRepo.Update(category);
+                _categoryRepo.Save();
+                TempData["success"] = "Category updated successfully!";
+                return RedirectToAction("Index");
+            }
 
-			return View();
-		}
+            return View();
+        }
 
-		public IActionResult Delete(int? id)
-		{
-			if (id == null)
-			{
-				return NotFound();
-			}
+        public IActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-			var category = _categoryRepo.Get(u => u.Id == id);
+            var category = _categoryRepo.Get(u => u.Id == id);
 
-			if (category == null)
-			{
-				return NotFound();
-			}
+            if (category == null)
+            {
+                return NotFound();
+            }
 
-			return View(category);
-		}
+            return View(category);
+        }
 
-		[HttpPost, ActionName("Delete")]
-		public IActionResult DeletePost(int? id)
-		{
+        [HttpPost, ActionName("Delete")]
+        public IActionResult DeletePost(int? id)
+        {
             Category? category = _categoryRepo.Get(u => u.Id == id);
 
-			if (category == null)
+            if (category == null)
             {
                 return NotFound();
             }
 
             _categoryRepo.Remove(category);
             _categoryRepo.Save();
-			TempData["success"] = "Category deleted successfully!";
-			return RedirectToAction("Index");
-		}
-	}
+            TempData["success"] = "Category deleted successfully!";
+            return RedirectToAction("Index");
+        }
+    }
 }
