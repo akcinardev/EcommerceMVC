@@ -31,7 +31,9 @@ namespace Ecommerce.DataAccess.Data
                         Description = "A romantic novel of manners written by Jane Austen.",
                         ISBN = "9780141040349",
                         Author = "Jane Austen",
-                        ListPrice = 7.49
+                        ListPrice = 7.49,
+                        CategoryId = 1,
+                        ImageUrl = ""
                     },
                     new Product
                     {
@@ -40,8 +42,10 @@ namespace Ecommerce.DataAccess.Data
                         Description = "A dystopian social science fiction novel and cautionary tale.",
                         ISBN = "9780451524935",
                         Author = "George Orwell",
-                        ListPrice = 9.99
-                    },
+                        ListPrice = 9.99,
+						CategoryId = 1,
+						ImageUrl = ""
+					},
                     new Product
                     {
                         Id = 3,
@@ -49,7 +53,9 @@ namespace Ecommerce.DataAccess.Data
                         Description = "A novel about the serious issues of rape and racial inequality.",
                         ISBN = "9780061120084",
                         Author = "Harper Lee",
-                        ListPrice = 8.99
+                        ListPrice = 8.99,
+                        CategoryId = 1,
+                        ImageUrl = ""
                     },
                     new Product
                     {
@@ -58,7 +64,9 @@ namespace Ecommerce.DataAccess.Data
                         Description = "A novel about the American dream and the roaring twenties.",
                         ISBN = "9780743273565",
                         Author = "F. Scott Fitzgerald",
-                        ListPrice = 10.99
+                        ListPrice = 10.99,
+                        CategoryId = 1,
+                        ImageUrl = ""
                     },
                     new Product
                     {
@@ -67,7 +75,9 @@ namespace Ecommerce.DataAccess.Data
                         Description = "A novel about the voyage of the whaling ship Pequod.",
                         ISBN = "9781503280786",
                         Author = "Herman Melville",
-                        ListPrice = 11.99
+                        ListPrice = 11.99,
+                        CategoryId = 1,
+                        ImageUrl = ""
                     },
                     new Product
                     {
@@ -76,7 +86,9 @@ namespace Ecommerce.DataAccess.Data
                         Description = "A historical novel that tells the story of five families.",
                         ISBN = "9780140447934",
                         Author = "Leo Tolstoy",
-                        ListPrice = 12.99
+                        ListPrice = 12.99,
+                        CategoryId = 1,
+                        ImageUrl = ""
                     },
                     new Product
                     {
@@ -85,7 +97,9 @@ namespace Ecommerce.DataAccess.Data
                         Description = "A story about adolescent alienation and loss of innocence.",
                         ISBN = "9780316769488",
                         Author = "J.D. Salinger",
-                        ListPrice = 7.99
+                        ListPrice = 7.99,
+                        CategoryId = 1,
+                        ImageUrl = ""
                     },
                     new Product
                     {
@@ -94,7 +108,9 @@ namespace Ecommerce.DataAccess.Data
                         Description = "A fantasy novel about the journey of Bilbo Baggins.",
                         ISBN = "9780547928227",
                         Author = "J.R.R. Tolkien",
-                        ListPrice = 10.99
+                        ListPrice = 10.99,
+                        CategoryId = 1,
+                        ImageUrl = ""
                     },
                     new Product
                     {
@@ -103,7 +119,9 @@ namespace Ecommerce.DataAccess.Data
                         Description = "An ancient Greek epic poem attributed to Homer.",
                         ISBN = "9780140268867",
                         Author = "Homer",
-                        ListPrice = 9.49
+                        ListPrice = 9.49,
+                        CategoryId = 1,
+                        ImageUrl = ""
                     },
                     new Product
                     {
@@ -112,7 +130,9 @@ namespace Ecommerce.DataAccess.Data
                         Description = "A novel about the mental anguish and moral dilemmas of a poor ex-student.",
                         ISBN = "9780140449136",
                         Author = "Fyodor Dostoevsky",
-                        ListPrice = 11.49
+                        ListPrice = 11.49,
+                        CategoryId = 1,
+                        ImageUrl = ""
                     }
             );
         }

@@ -3,6 +3,7 @@ using Ecommerce.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ecommerce.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240814122702_ResetDb")]
+    partial class ResetDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -84,10 +87,6 @@ namespace Ecommerce.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<double>("ListPrice")
                         .HasColumnType("float");
 
@@ -110,7 +109,6 @@ namespace Ecommerce.DataAccess.Migrations
                             CategoryId = 1,
                             Description = "A romantic novel of manners written by Jane Austen.",
                             ISBN = "9780141040349",
-                            ImageUrl = "",
                             ListPrice = 7.4900000000000002,
                             Title = "Pride and Prejudice"
                         },
@@ -121,7 +119,6 @@ namespace Ecommerce.DataAccess.Migrations
                             CategoryId = 1,
                             Description = "A dystopian social science fiction novel and cautionary tale.",
                             ISBN = "9780451524935",
-                            ImageUrl = "",
                             ListPrice = 9.9900000000000002,
                             Title = "1984"
                         },
@@ -132,7 +129,6 @@ namespace Ecommerce.DataAccess.Migrations
                             CategoryId = 1,
                             Description = "A novel about the serious issues of rape and racial inequality.",
                             ISBN = "9780061120084",
-                            ImageUrl = "",
                             ListPrice = 8.9900000000000002,
                             Title = "To Kill a Mockingbird"
                         },
@@ -143,7 +139,6 @@ namespace Ecommerce.DataAccess.Migrations
                             CategoryId = 1,
                             Description = "A novel about the American dream and the roaring twenties.",
                             ISBN = "9780743273565",
-                            ImageUrl = "",
                             ListPrice = 10.99,
                             Title = "The Great Gatsby"
                         },
@@ -154,7 +149,6 @@ namespace Ecommerce.DataAccess.Migrations
                             CategoryId = 1,
                             Description = "A novel about the voyage of the whaling ship Pequod.",
                             ISBN = "9781503280786",
-                            ImageUrl = "",
                             ListPrice = 11.99,
                             Title = "Moby Dick"
                         },
@@ -165,7 +159,6 @@ namespace Ecommerce.DataAccess.Migrations
                             CategoryId = 1,
                             Description = "A historical novel that tells the story of five families.",
                             ISBN = "9780140447934",
-                            ImageUrl = "",
                             ListPrice = 12.99,
                             Title = "War and Peace"
                         },
@@ -176,7 +169,6 @@ namespace Ecommerce.DataAccess.Migrations
                             CategoryId = 1,
                             Description = "A story about adolescent alienation and loss of innocence.",
                             ISBN = "9780316769488",
-                            ImageUrl = "",
                             ListPrice = 7.9900000000000002,
                             Title = "The Catcher in the Rye"
                         },
@@ -187,7 +179,6 @@ namespace Ecommerce.DataAccess.Migrations
                             CategoryId = 1,
                             Description = "A fantasy novel about the journey of Bilbo Baggins.",
                             ISBN = "9780547928227",
-                            ImageUrl = "",
                             ListPrice = 10.99,
                             Title = "The Hobbit"
                         },
@@ -198,7 +189,6 @@ namespace Ecommerce.DataAccess.Migrations
                             CategoryId = 1,
                             Description = "An ancient Greek epic poem attributed to Homer.",
                             ISBN = "9780140268867",
-                            ImageUrl = "",
                             ListPrice = 9.4900000000000002,
                             Title = "The Odyssey"
                         },
@@ -209,7 +199,6 @@ namespace Ecommerce.DataAccess.Migrations
                             CategoryId = 1,
                             Description = "A novel about the mental anguish and moral dilemmas of a poor ex-student.",
                             ISBN = "9780140449136",
-                            ImageUrl = "",
                             ListPrice = 11.49,
                             Title = "Crime and Punishment"
                         });

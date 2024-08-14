@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ecommerce.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240814112035_AddProductsToDb")]
-    partial class AddProductsToDb
+    [Migration("20240814123223_ImageUrlToProduct")]
+    partial class ImageUrlToProduct
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -76,11 +76,18 @@ namespace Ecommerce.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ISBN")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -94,6 +101,8 @@ namespace Ecommerce.DataAccess.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoryId");
+
                     b.ToTable("Products");
 
                     b.HasData(
@@ -101,8 +110,10 @@ namespace Ecommerce.DataAccess.Migrations
                         {
                             Id = 1,
                             Author = "Jane Austen",
+                            CategoryId = 1,
                             Description = "A romantic novel of manners written by Jane Austen.",
                             ISBN = "9780141040349",
+                            ImageUrl = "",
                             ListPrice = 7.4900000000000002,
                             Title = "Pride and Prejudice"
                         },
@@ -110,8 +121,10 @@ namespace Ecommerce.DataAccess.Migrations
                         {
                             Id = 2,
                             Author = "George Orwell",
+                            CategoryId = 1,
                             Description = "A dystopian social science fiction novel and cautionary tale.",
                             ISBN = "9780451524935",
+                            ImageUrl = "",
                             ListPrice = 9.9900000000000002,
                             Title = "1984"
                         },
@@ -119,8 +132,10 @@ namespace Ecommerce.DataAccess.Migrations
                         {
                             Id = 3,
                             Author = "Harper Lee",
+                            CategoryId = 1,
                             Description = "A novel about the serious issues of rape and racial inequality.",
                             ISBN = "9780061120084",
+                            ImageUrl = "",
                             ListPrice = 8.9900000000000002,
                             Title = "To Kill a Mockingbird"
                         },
@@ -128,8 +143,10 @@ namespace Ecommerce.DataAccess.Migrations
                         {
                             Id = 4,
                             Author = "F. Scott Fitzgerald",
+                            CategoryId = 1,
                             Description = "A novel about the American dream and the roaring twenties.",
                             ISBN = "9780743273565",
+                            ImageUrl = "",
                             ListPrice = 10.99,
                             Title = "The Great Gatsby"
                         },
@@ -137,8 +154,10 @@ namespace Ecommerce.DataAccess.Migrations
                         {
                             Id = 5,
                             Author = "Herman Melville",
+                            CategoryId = 1,
                             Description = "A novel about the voyage of the whaling ship Pequod.",
                             ISBN = "9781503280786",
+                            ImageUrl = "",
                             ListPrice = 11.99,
                             Title = "Moby Dick"
                         },
@@ -146,8 +165,10 @@ namespace Ecommerce.DataAccess.Migrations
                         {
                             Id = 6,
                             Author = "Leo Tolstoy",
+                            CategoryId = 1,
                             Description = "A historical novel that tells the story of five families.",
                             ISBN = "9780140447934",
+                            ImageUrl = "",
                             ListPrice = 12.99,
                             Title = "War and Peace"
                         },
@@ -155,8 +176,10 @@ namespace Ecommerce.DataAccess.Migrations
                         {
                             Id = 7,
                             Author = "J.D. Salinger",
+                            CategoryId = 1,
                             Description = "A story about adolescent alienation and loss of innocence.",
                             ISBN = "9780316769488",
+                            ImageUrl = "",
                             ListPrice = 7.9900000000000002,
                             Title = "The Catcher in the Rye"
                         },
@@ -164,8 +187,10 @@ namespace Ecommerce.DataAccess.Migrations
                         {
                             Id = 8,
                             Author = "J.R.R. Tolkien",
+                            CategoryId = 1,
                             Description = "A fantasy novel about the journey of Bilbo Baggins.",
                             ISBN = "9780547928227",
+                            ImageUrl = "",
                             ListPrice = 10.99,
                             Title = "The Hobbit"
                         },
@@ -173,8 +198,10 @@ namespace Ecommerce.DataAccess.Migrations
                         {
                             Id = 9,
                             Author = "Homer",
+                            CategoryId = 1,
                             Description = "An ancient Greek epic poem attributed to Homer.",
                             ISBN = "9780140268867",
+                            ImageUrl = "",
                             ListPrice = 9.4900000000000002,
                             Title = "The Odyssey"
                         },
@@ -182,11 +209,24 @@ namespace Ecommerce.DataAccess.Migrations
                         {
                             Id = 10,
                             Author = "Fyodor Dostoevsky",
+                            CategoryId = 1,
                             Description = "A novel about the mental anguish and moral dilemmas of a poor ex-student.",
                             ISBN = "9780140449136",
+                            ImageUrl = "",
                             ListPrice = 11.49,
                             Title = "Crime and Punishment"
                         });
+                });
+
+            modelBuilder.Entity("Ecommerce.Models.Product", b =>
+                {
+                    b.HasOne("Ecommerce.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
                 });
 #pragma warning restore 612, 618
         }

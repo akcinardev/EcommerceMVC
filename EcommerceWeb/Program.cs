@@ -20,6 +20,7 @@ namespace EcommerceWeb
             });
 
             builder.Services.AddScoped<ICategoryRepo, CategoryRepo>();
+            builder.Services.AddScoped<IProductRepo, ProductRepo>();
 
             var app = builder.Build();
 
