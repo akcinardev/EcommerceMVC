@@ -1,4 +1,6 @@
 using Ecommerce.DataAccess.Data;
+using Ecommerce.DataAccess.Repository;
+using Ecommerce.DataAccess.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
 
 namespace EcommerceWeb
@@ -11,11 +13,13 @@ namespace EcommerceWeb
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
 
+            builder.Services.AddScoped<ICategoryRepo, CategoryRepo>();
 
             var app = builder.Build();
 
