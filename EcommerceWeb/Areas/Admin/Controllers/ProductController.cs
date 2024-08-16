@@ -1,5 +1,6 @@
 ﻿using Ecommerce.DataAccess.Repository.IRepository;
 using Ecommerce.Models;
+using Ecommerce.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -24,32 +25,47 @@ namespace EcommerceWeb.Areas.Admin.Controllers
 
         public IActionResult Create()
         {
-			IEnumerable<SelectListItem> CategoryList = _categoryRepo.GetAll()
+            ProductVM productVM = new()
+            {
+                Product = new Product(),
+
+                CategoryList = _categoryRepo.GetAll()
 				.Select(c => new SelectListItem
 				{
 					Text = c.Name,
 					Value = c.Id.ToString()
-				});
-            // ViewBag
-            // ViewBag.CategoryList = CategoryList;
+				})
+			};
 
-            // ViewData
-            ViewData["CategoryList"] = CategoryList;
-
-			return View();
+			return View(productVM);
         }
 
         [HttpPost]
-        public IActionResult Create(Product product)
+        public IActionResult Create(ProductVM productVm)
         {
-            if (ModelState.IsValid)
+			if (productVm.Product.CategoryId == 0)
+			{
+				ModelState.AddModelError("Product.CategoryId", "Category is required.");
+			}
+
+			if (ModelState.IsValid)
             {
-                _productRepo.Add(product);
+                _productRepo.Add(productVm.Product);
                 _productRepo.Save();
                 TempData["success"] = "Product created successfully!";
                 return RedirectToAction("Index");
             }
-            return View();
+            else
+            {
+                productVm.CategoryList = _categoryRepo.GetAll()
+                    .Select(c => new SelectListItem
+                    {
+                        Text = c.Name,
+                        Value = c.Id.ToString()
+                    });
+
+				return View(productVm);
+			}
         }
 
         public IActionResult Edit(int? id)
