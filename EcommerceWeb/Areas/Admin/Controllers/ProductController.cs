@@ -69,6 +69,17 @@ namespace EcommerceWeb.Areas.Admin.Controllers
                     string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
                     string productPath = Path.Combine(wwwRootPath, @"images\product");
 
+                    if (!string.IsNullOrEmpty(productVm.Product.ImageUrl))
+                    {
+                        // Delete existing image
+                        var existingImgPath = Path.Combine(wwwRootPath, productVm.Product.ImageUrl.TrimStart('\\'));
+
+                        if (System.IO.File.Exists(existingImgPath))
+                        {
+                            System.IO.File.Delete(existingImgPath);
+                        }
+                    }
+
                     using (var fileStream = new FileStream(Path.Combine(productPath, fileName), FileMode.Create))
                     {
                         file.CopyTo(fileStream);
@@ -76,7 +87,16 @@ namespace EcommerceWeb.Areas.Admin.Controllers
 
                     productVm.Product.ImageUrl = @"\images\product\" + fileName;
                 }
-                _productRepo.Add(productVm.Product);
+
+                if (productVm.Product.Id == 0)
+                {
+					_productRepo.Add(productVm.Product);
+				}
+                else
+                {
+					_productRepo.Update(productVm.Product);
+				}
+
                 _productRepo.Save();
                 TempData["success"] = "Product created successfully!";
                 return RedirectToAction("Index");
