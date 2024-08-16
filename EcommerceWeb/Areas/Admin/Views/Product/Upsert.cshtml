@@ -1,9 +1,10 @@
 ﻿@model ProductVM
 
-<form method="post">
+<form method="post" enctype="multipart/form-data">
+	<input asp-for="Product.Id" hidden/>
 	<div class="border p-3 mt-4">
 		<div class="row pb-2">
-			<h2 class="text-primary">Create Product</h2>
+			<h2 class="text-primary">@(Model.Product.Id != 0 ? "Update" : "Create") Product</h2>
 		</div>
 	</div>
 
@@ -47,8 +48,7 @@
 
 	<div class="mb-3">
 		<label asp-for="Product.ImageUrl"></label>
-		<input asp-for="Product.ImageUrl" type="text" class="form-control" />
-		<span asp-validation-for="Product.ImageUrl" class="text-danger"></span>
+		<input type="file" type="text" class="form-control" />
 	</div>
 
 	<div class="row">
@@ -56,7 +56,14 @@
 			<a asp-controller="Product" asp-action="Index" class="btn btn-info form-control">Back to List</a>
 		</div>
 		<div class="col-6">
-			<button type="submit" class="btn btn-primary form-control">Create</button>
+			@if(Model.Product.Id != 0)
+			{
+				<button type="submit" class="btn btn-primary form-control">Create</button>
+			}
+			else
+			{
+				<button type="submit" class="btn btn-primary form-control">Update</button>
+			}
 		</div>
 	</div>
 </form>

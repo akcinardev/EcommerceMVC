@@ -23,7 +23,7 @@ namespace EcommerceWeb.Areas.Admin.Controllers
             return View(products);
         }
 
-        public IActionResult Create()
+        public IActionResult Upsert(int? id) //Update - Insert
         {
             ProductVM productVM = new()
             {
@@ -37,11 +37,21 @@ namespace EcommerceWeb.Areas.Admin.Controllers
 				})
 			};
 
-			return View(productVM);
+            if (id == 0 || id == null)
+            {
+                // Create New Product
+				return View(productVM);
+			}
+            else
+            {
+                // Update existing Product
+                productVM.Product = _productRepo.Get(u => u.Id == id);
+                return View(productVM);
+			}
         }
 
         [HttpPost]
-        public IActionResult Create(ProductVM productVm)
+        public IActionResult Upsert(ProductVM productVm, IFormFile? file)
         {
 			if (productVm.Product.CategoryId == 0)
 			{
@@ -66,37 +76,6 @@ namespace EcommerceWeb.Areas.Admin.Controllers
 
 				return View(productVm);
 			}
-        }
-
-        public IActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var product = _productRepo.Get(u => u.Id == id);
-
-            if (product == null)
-            {
-                return NotFound();
-            }
-
-            return View(product);
-        }
-
-        [HttpPost]
-        public IActionResult Edit(Product product)
-        {
-            if (ModelState.IsValid)
-            {
-                _productRepo.Update(product);
-                _productRepo.Save();
-                TempData["success"] = "Product updated successfully!";
-                return RedirectToAction("Index");
-            }
-
-            return View();
         }
 
         public IActionResult Delete(int? id)
