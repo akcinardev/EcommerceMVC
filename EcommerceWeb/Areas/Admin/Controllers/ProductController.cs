@@ -11,10 +11,13 @@ namespace EcommerceWeb.Areas.Admin.Controllers
     {
         private readonly IProductRepo _productRepo;
         private readonly ICategoryRepo _categoryRepo;
-		public ProductController(IProductRepo productRepo, ICategoryRepo categoryRepo)
+        private readonly IWebHostEnvironment _webHostEnvironment;
+
+		public ProductController(IProductRepo productRepo, ICategoryRepo categoryRepo, IWebHostEnvironment webHostEnvironment)
         {
             _productRepo = productRepo;
             _categoryRepo = categoryRepo;
+            _webHostEnvironment = webHostEnvironment;
         }
         public IActionResult Index()
         {
@@ -60,6 +63,19 @@ namespace EcommerceWeb.Areas.Admin.Controllers
 
 			if (ModelState.IsValid)
             {
+                string wwwRootPath = _webHostEnvironment.WebRootPath;
+                if (file != null)
+                {
+                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                    string productPath = Path.Combine(wwwRootPath, @"images\product");
+
+                    using (var fileStream = new FileStream(Path.Combine(productPath, fileName), FileMode.Create))
+                    {
+                        file.CopyTo(fileStream);
+                    }
+
+                    productVm.Product.ImageUrl = @"\images\product\" + fileName;
+                }
                 _productRepo.Add(productVm.Product);
                 _productRepo.Save();
                 TempData["success"] = "Product created successfully!";
