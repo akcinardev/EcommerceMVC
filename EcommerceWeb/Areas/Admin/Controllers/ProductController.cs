@@ -21,7 +21,7 @@ namespace EcommerceWeb.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-            List<Product> products = _productRepo.GetAll().ToList();
+            List<Product> products = _productRepo.GetAll(includeProps: "Category").ToList();
             
             return View(products);
         }

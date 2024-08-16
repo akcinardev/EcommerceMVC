@@ -24,16 +24,30 @@ namespace Ecommerce.DataAccess.Repository
 			dbSet.Add(entity);
 		}
 
-		public T Get(Expression<Func<T, bool>> filter)
+		public T Get(Expression<Func<T, bool>> filter, string? includeProps = null)
 		{
 			IQueryable<T> query = dbSet;
 			query = query.Where(filter);
+			if (!string.IsNullOrEmpty(includeProps))
+			{
+				foreach (var prop in includeProps.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+				{
+					query = query.Include(prop);
+				}
+			}
 			return query.FirstOrDefault();
 		}
 
-		public IEnumerable<T> GetAll()
+		public IEnumerable<T> GetAll(string? includeProps = null)
 		{
 			IQueryable<T> query = dbSet;
+			if (!string.IsNullOrEmpty(includeProps))
+			{
+				foreach (var prop in includeProps.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+				{
+					query = query.Include(prop);
+				}
+			}
 			return query.ToList();
 		}
 
